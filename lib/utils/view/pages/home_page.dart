@@ -147,7 +147,30 @@ class HomePage extends StatelessWidget {
               max: 10000,
               value: 1000.0,
               onChanged: (value) {},
-            )
+            ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            SizedBox(
+              width: double.maxFinite,
+              child: TextButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                    ),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.teal.shade300)),
+                onPressed: () {},
+                child: const Text(
+                  'Salvar',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
