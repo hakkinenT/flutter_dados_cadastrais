@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dados_cadastrais/utils/constants.dart';
+import 'package:flutter_dados_cadastrais/utils/view/widgets/custom_text_form_field.dart';
+import 'package:flutter_dados_cadastrais/utils/view/widgets/form_label.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,12 +12,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(paddingSpace),
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(paddingSpace),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Text('Home Page'),
+            FormLabel(label: 'Nome'),
+            SizedBox(
+              height: 8,
+            ),
+            CustomTextFormField(
+              hintText: 'John Doe',
             )
           ],
         ),
