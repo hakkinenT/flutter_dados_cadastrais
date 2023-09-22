@@ -57,6 +57,30 @@ class HomePage extends StatelessWidget {
                       );
                     });
               },
+            ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            const FormLabel(label: 'Nível de Experiência'),
+            const SizedBox(
+              height: heightSpace / 8,
+            ),
+            Column(
+              children: levels
+                  .map((level) => RadioListTile(
+                        dense: true,
+                        title: Text(
+                          level.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        activeColor: Colors.teal.shade300,
+                        contentPadding: const EdgeInsets.only(left: 0),
+                        value: level.toString(),
+                        groupValue: 'Iniciante',
+                        selected: true,
+                        onChanged: (value) {},
+                      ))
+                  .toList(),
             )
           ],
         ),
