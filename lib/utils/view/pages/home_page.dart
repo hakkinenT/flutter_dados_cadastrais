@@ -12,17 +12,51 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(paddingSpace),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(paddingSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FormLabel(label: 'Nome'),
-            SizedBox(
-              height: 8,
+            const FormLabel(label: 'Nome'),
+            const SizedBox(
+              height: heightSpace / 2,
+            ),
+            const CustomTextFormField(
+              hintText: 'John Doe',
+            ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            const FormLabel(label: 'Data de Nascimento'),
+            const SizedBox(
+              height: heightSpace / 2,
             ),
             CustomTextFormField(
-              hintText: 'John Doe',
+              hintText: '21/09/2023',
+              readOnly: true,
+              onTap: () async {
+                await showDatePicker(
+                    context: context,
+                    initialDate: DateTime(2000, 1, 1),
+                    firstDate: DateTime(1900, 5, 20),
+                    lastDate: DateTime(2023, 12, 31),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.dark(
+                              primary: Colors.teal.shade300,
+                              onPrimary: Colors.black,
+                              surface: surfaceColor,
+                              onSurface: Colors.white,
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                  foregroundColor: appColor),
+                            )),
+                        child: child!,
+                      );
+                    });
+              },
             )
           ],
         ),
