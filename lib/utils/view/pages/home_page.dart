@@ -104,7 +104,36 @@ class HomePage extends StatelessWidget {
                     ),
                   )
                   .toList(),
-            )
+            ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            const FormLabel(label: 'Tempo de Experiência'),
+            const SizedBox(
+              height: heightSpace / 2,
+            ),
+            DropdownButtonFormField(
+              dropdownColor: surfaceColor,
+              isDense: true,
+              style: const TextStyle(color: Colors.black),
+              items: List<DropdownMenuItem<int>>.generate(
+                50,
+                (index) => DropdownMenuItem<int>(
+                  value: index,
+                  child: Text(
+                    index.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                borderSide: BorderSide(color: appColor),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(borderRadius)),
+              )),
+              onChanged: (value) {},
+            ),
           ],
         ),
       ),
