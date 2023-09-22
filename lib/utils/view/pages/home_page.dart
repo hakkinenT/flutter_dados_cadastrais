@@ -134,6 +134,20 @@ class HomePage extends StatelessWidget {
               )),
               onChanged: (value) {},
             ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            const FormLabel(label: 'Pretenção Salarial'),
+            const SizedBox(
+              height: heightSpace / 2,
+            ),
+            Slider(
+              activeColor: Colors.teal.shade300,
+              min: 0,
+              max: 10000,
+              value: 1000.0,
+              onChanged: (value) {},
+            )
           ],
         ),
       ),
