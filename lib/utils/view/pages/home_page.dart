@@ -81,6 +81,29 @@ class HomePage extends StatelessWidget {
                         onChanged: (value) {},
                       ))
                   .toList(),
+            ),
+            const SizedBox(
+              height: heightSpace,
+            ),
+            const FormLabel(label: 'Linguagens Preferidas'),
+            const SizedBox(
+              height: heightSpace / 2,
+            ),
+            Column(
+              children: languages
+                  .map(
+                    (language) => CheckboxListTile(
+                      dense: true,
+                      activeColor: Colors.teal.shade300,
+                      title: Text(
+                        language,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      value: true,
+                      onChanged: (value) {},
+                    ),
+                  )
+                  .toList(),
             )
           ],
         ),
