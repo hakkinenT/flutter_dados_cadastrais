@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final Color appColor = Colors.teal.shade200;
+final Color appColor = Colors.teal.shade100;
 final backgroundColor = Color.alphaBlend(
     const Color.fromRGBO(0, 150, 136, 0.08), const Color(0xFF121212));
 final surfaceColor = Color.alphaBlend(
