@@ -4,9 +4,12 @@ import 'package:flutter_dados_cadastrais/utils/view/pages/home_page.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'utils/models/register_data.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _hiveConfiguration();
+  _registerAdapter();
 
   runApp(const MyApp());
 }
@@ -14,6 +17,10 @@ void main() async {
 _hiveConfiguration() async {
   var dir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(dir.path);
+}
+
+_registerAdapter() {
+  Hive.registerAdapter(RegisterDataAdapter());
 }
 
 class MyApp extends StatelessWidget {
