@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dados_cadastrais/db/db.dart';
 import 'package:flutter_dados_cadastrais/utils/constants.dart';
 import 'package:flutter_dados_cadastrais/utils/view/pages/home_page.dart';
 import 'package:hive/hive.dart';
@@ -8,19 +9,8 @@ import 'utils/models/register_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _hiveConfiguration();
-  _registerAdapter();
 
   runApp(const MyApp());
-}
-
-_hiveConfiguration() async {
-  var dir = await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(dir.path);
-}
-
-_registerAdapter() {
-  Hive.registerAdapter(RegisterDataAdapter());
 }
 
 class MyApp extends StatelessWidget {
