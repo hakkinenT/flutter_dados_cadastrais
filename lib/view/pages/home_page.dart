@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dados_cadastrais/view/pages/register_page.dart';
 
-import '../../utils/spaces.dart';
 import '../widgets/register_data_form.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +11,19 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const RegisterPage(),
+                ),
+              );
+            },
+            child: const Text('Adicionar'),
+          ),
+        ],
       ),
       body: const _HomePageBody(child: RegisterDataForm()),
     );
@@ -24,9 +37,8 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(paddingSpace),
-      child: child,
+    return const Center(
+      child: Text('Home'),
     );
   }
 }
