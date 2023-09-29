@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dados_cadastrais/utils/constants.dart';
-import 'package:flutter_dados_cadastrais/utils/view/widgets/custom_text_form_field.dart';
-import 'package:flutter_dados_cadastrais/utils/view/widgets/form_label.dart';
+import 'package:flutter_dados_cadastrais/view/widgets/custom_text_form_field.dart';
+import 'package:flutter_dados_cadastrais/view/widgets/form_label.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
