@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dados_cadastrais/utils/constants.dart';
 
 class FormLabel extends StatelessWidget {
   const FormLabel({super.key, required this.label});
@@ -10,8 +9,7 @@ class FormLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       label,
-      style: TextStyle(
-        color: appColor,
+      style: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),

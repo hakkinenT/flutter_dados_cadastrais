@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dados_cadastrais/utils/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -27,9 +26,10 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final border = OutlineInputBorder(
-      borderSide: BorderSide(color: appColor),
-      borderRadius: const BorderRadius.all(Radius.circular(borderRadius)),
+    const border = OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(10),
+      ),
     );
 
     return TextFormField(
@@ -37,17 +37,18 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       initialValue: initialValue,
       decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.white30),
-          errorText: errorText,
-          suffixIcon: suffixIcon,
-          suffixIconColor: appColor,
-          border: border,
-          enabledBorder: border,
-          focusedBorder: border,
-          errorBorder: border.copyWith(
-            borderSide: const BorderSide(color: Colors.red),
-          )),
+        contentPadding: const EdgeInsets.all(10),
+        hintText: hintText,
+        hintStyle: const TextStyle(fontSize: 14, color: Colors.black38),
+        errorText: errorText,
+        suffixIcon: suffixIcon,
+        border: border,
+        errorBorder: border.copyWith(
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+        focusedBorder: border,
+        enabledBorder: border,
+      ),
       onChanged: onChanged,
       onTap: onTap,
       readOnly: readOnly,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dados_cadastrais/utils/constants.dart';
+
+import 'package:flutter_dados_cadastrais/utils/themes/register_data_theme.dart';
 import 'package:flutter_dados_cadastrais/view/pages/home_page.dart';
 
 void main() async {
@@ -16,13 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: backgroundColor,
-        appBarTheme: AppBarTheme(
-            backgroundColor: surfaceColor, foregroundColor: Colors.white),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const HomePage(),
     );
   }
