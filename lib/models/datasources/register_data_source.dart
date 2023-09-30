@@ -15,6 +15,12 @@ class RegisterDataSource {
     return _convertDynamicToMap(data);
   }
 
+  Future<List<Map<String, dynamic>>> getAll() async {
+    final db = await DB.instance.database;
+    final result = db.values.map((data) => _convertDynamicToMap(data)).toList();
+    return result;
+  }
+
   Map<String, dynamic> _convertDynamicToMap(dynamic data) {
     return {
       'id': data['id'],
