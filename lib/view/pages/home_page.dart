@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dados_cadastrais/view/pages/register_page.dart';
 
 import '../widgets/register_data_form.dart';
+import 'register_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,8 +37,12 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home'),
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('text $index'),
+        );
+      },
     );
   }
 }
