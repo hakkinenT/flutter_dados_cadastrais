@@ -19,4 +19,10 @@ class RegisterRepository {
   Future<void> deleteData(String id) async {
     return registerDataSource.delete(id);
   }
+
+  Future<List<RegisterData>> getAllData() async {
+    final data = await registerDataSource.getAll();
+
+    return data.map((e) => RegisterData.fromJson(e)).toList();
+  }
 }
