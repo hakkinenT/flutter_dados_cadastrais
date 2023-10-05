@@ -9,7 +9,7 @@ class LevelRadioList extends StatelessWidget {
       required this.groupValue,
       this.onChanged});
 
-  final bool selected;
+  final String selected;
   final String groupValue;
   final ValueChanged<String?>? onChanged;
 
@@ -25,7 +25,7 @@ class LevelRadioList extends StatelessWidget {
                 contentPadding: const EdgeInsets.only(left: 0),
                 value: level.toString(),
                 groupValue: groupValue,
-                selected: selected,
+                selected: selected == level,
                 onChanged: onChanged,
               ))
           .toList(),

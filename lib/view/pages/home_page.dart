@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dados_cadastrais/controllers/register_data_controller.dart';
+import 'package:flutter_dados_cadastrais/controllers/register_data_state.dart';
 import 'package:flutter_dados_cadastrais/utils/spaces.dart';
 
 import '../../models/datasources/register_data_source.dart';
@@ -46,13 +48,19 @@ class _HomePageBodyState extends State<_HomePageBody> {
   bool empty = true;
   List<RegisterData> datas = [];
   late RegisterRepository repository;
+  late RegisterDataController controller;
 
   @override
   void initState() {
     super.initState();
     repository = RegisterRepository(registerDataSource: RegisterDataSource());
+    controller = RegisterDataController();
 
-    _getData();
+    _getData2();
+  }
+
+  _getData2() async {
+    await controller.getAllData();
   }
 
   _getData() async {
@@ -98,12 +106,29 @@ class _HomePageBodyState extends State<_HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (loading) {
+    /*if (loading) {
       return const LinearProgressIndicator();
     } else if (empty) {
       return const EmptyRegisterList();
     }
-    return RegisterDataList(datas: datas);
+
+    return RegisterDataList(datas: datas);*/
+    return ListenableBuilder(
+        listenable: controller,
+        builder: (context, child) {
+          final state = controller.state;
+
+          if (state is LoadingDataState) {
+            return const LinearProgressIndicator();
+          } else if (state is EmptyDataState) {
+            return const EmptyRegisterList();
+          } else if (state is GettedDataState) {
+            print("estoou aqui");
+            return RegisterDataList(datas: state.datas);
+          }
+
+          return const SizedBox();
+        });
   }
 }
 

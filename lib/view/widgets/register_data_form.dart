@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dados_cadastrais/view/widgets/form_input_body.dart';
+import 'package:flutter_dados_cadastrais/controllers/register_data_controller.dart';
 
+import 'package:intl/intl.dart';
+
+import '../../models/register_data.dart';
+import '../../utils/extensions/date_time_extension.dart';
+import 'form_input_body.dart';
 import '../../utils/spaces.dart';
 import 'custom_elevated_button.dart';
 import 'custom_text_form_field.dart';
@@ -11,7 +16,9 @@ import 'level_radio_list.dart';
 import 'salary_slider.dart';
 
 class RegisterDataForm extends StatefulWidget {
-  const RegisterDataForm({super.key});
+  final RegisterData? data;
+
+  const RegisterDataForm({super.key, this.data});
 
   @override
   State<RegisterDataForm> createState() => _RegisterDataFormState();
@@ -20,6 +27,32 @@ class RegisterDataForm extends StatefulWidget {
 class _RegisterDataFormState extends State<RegisterDataForm> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController birthController = TextEditingController();
+  String selectedLevel = 'Iniciante';
+  List<String> languagesSelected = [];
+  int experienceTime = 0;
+  double salary = 0.0;
+  DateTime birthDate = DateTime.now();
+  bool hasError = false;
+  String? errorMessage;
+  late RegisterDataController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.data != null) {
+      setState(() {
+        nameController.text = widget.data!.name;
+        birthController.text = widget.data!.birthDate.asDayMonthYear();
+        selectedLevel = widget.data!.experienceLevel;
+        experienceTime = widget.data!.experienceTime;
+        salary = widget.data!.salary;
+        languagesSelected = widget.data!.preferredLanguage;
+      });
+    }
+
+    controller = RegisterDataController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +61,11 @@ class _RegisterDataFormState extends State<RegisterDataForm> {
       children: [
         _NameInput(
           controller: nameController,
-          onChanged: (value) {},
+          onChanged: (value) {
+            setState(() {
+              nameController.text = value;
+            });
+          },
         ),
         heightSpace,
         _BirthDateInput(
@@ -37,40 +74,78 @@ class _RegisterDataFormState extends State<RegisterDataForm> {
         ),
         heightSpace,
         _ExperienceLevelInput(
-          selected: true,
-          groupValue: 'Iniciante',
-          onChanged: (value) {},
+          selected: selectedLevel,
+          groupValue: selectedLevel,
+          onChanged: (value) {
+            setState(() {
+              selectedLevel = value!;
+            });
+          },
         ),
         heightSpace,
         _PreferredLanguagesInput(
-          value: true,
-          onChanged: (value) {},
+          languagesSelected: languagesSelected,
         ),
         heightSpace,
         _ExperienceTimeInput(
-          value: 0,
-          onChanged: (value) {},
+          value: experienceTime,
+          onChanged: (value) {
+            setState(() {
+              experienceTime = value!;
+            });
+          },
         ),
         heightSpace,
         _SalaryInput(
-          value: 2000.0,
-          onChanged: (value) {},
+          value: salary,
+          onChanged: (value) {
+            setState(() {
+              salary = value;
+            });
+          },
         ),
         heightSpace,
         CustomTextButton(
-          onPressed: () {},
+          onPressed: () async {
+            await controller.addData(
+              RegisterData(
+                  name: nameController.text,
+                  birthDate:
+                      DateFormat('dd/MM/yyyy').parse(birthController.text),
+                  experienceLevel: selectedLevel,
+                  preferredLanguage: languagesSelected,
+                  experienceTime: experienceTime,
+                  salary: salary),
+            );
+
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Dados cadastrados com sucesso!'),
+                ),
+              );
+              Navigator.pop(context);
+            }
+          },
         ),
       ],
     );
   }
 
   _showDatePicker(BuildContext context) async {
-    await showDatePicker(
+    var date = await showDatePicker(
       context: context,
-      initialDate: DateTime(2000, 1, 1),
+      initialDate: DateTime.now(),
       firstDate: DateTime(1900, 5, 20),
       lastDate: DateTime(2023, 12, 31),
     );
+
+    if (date != null) {
+      setState(() {
+        birthController.text = date.asDayMonthYear();
+        birthDate = date;
+      });
+    }
   }
 }
 
@@ -123,7 +198,7 @@ class _ExperienceLevelInput extends StatelessWidget {
   const _ExperienceLevelInput(
       {required this.selected, required this.groupValue, this.onChanged});
 
-  final bool selected;
+  final String selected;
   final String groupValue;
   final ValueChanged<String?>? onChanged;
 
@@ -144,10 +219,9 @@ class _ExperienceLevelInput extends StatelessWidget {
 }
 
 class _PreferredLanguagesInput extends StatelessWidget {
-  const _PreferredLanguagesInput({this.onChanged, required this.value});
+  const _PreferredLanguagesInput({required this.languagesSelected});
 
-  final ValueChanged<bool?>? onChanged;
-  final bool value;
+  final List<String> languagesSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +230,7 @@ class _PreferredLanguagesInput extends StatelessWidget {
         const FormLabel(label: 'Linguagens Preferidas'),
         halfHeightSpace,
         LanguagesCheckboxList(
-          value: value,
-          onChanged: onChanged,
+          languagesSelected: languagesSelected,
         ),
       ],
     );
@@ -194,7 +267,7 @@ class _SalaryInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormInputBody(children: [
-      const FormLabel(label: 'Pretenção Salarial'),
+      FormLabel(label: 'Pretenção Salarial R\$ ${value.toStringAsFixed(2)}'),
       halfHeightSpace,
       SalarySlider(
         value: value,

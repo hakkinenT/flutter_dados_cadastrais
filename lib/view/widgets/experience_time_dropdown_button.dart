@@ -15,13 +15,18 @@ class ExperienceTimeDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
-      isDense: true,
+      value: value == 0 ? null : value,
+      isExpanded: true,
+      hint: const Text(
+        '2 anos',
+        style: TextStyle(color: Colors.black38),
+      ),
       items: List<DropdownMenuItem<int>>.generate(
         50,
         (index) => DropdownMenuItem<int>(
           value: index,
           child: Text(
-            index.toString(),
+            '${index.toString()} anos',
           ),
         ),
       ),
